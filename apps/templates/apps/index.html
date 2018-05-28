@@ -1,0 +1,30 @@
+
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>本</title>
+    </head>
+
+    <center>
+    <body>
+        
+        <a href="{% url 'apps:search' %}">検索画面</a>
+        <table border="1" width="500" cellpasing="0" cellpadding="5">
+            <tr>
+                <th>タイトル</th>
+                <th>著者・イラスト</th>
+            </tr>
+
+            {% for post in object_list %}
+                <tr>
+                    <th>{{ post.book_title }}</th>
+                    <th>{{ post.book_auther }} {{ post.book_illust }}</th>
+                </tr>
+            {% endfor %}
+        </table>
+    </body>
+    </center>
+
+</html>
