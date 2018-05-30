@@ -1,0 +1,14 @@
+{% if titles %}
+
+    <h1>{{ titles }}</h1>
+    <h1>{{ book }}</h1>
+    {% for book in get_queryset %}
+        <tr>
+            <th>{{ book.book_title }}</th>
+            <th>{{ book.book_auther }} {{ book.book_illust }}</th>
+        </tr>
+    {% endfor %}
+
+{% else %}
+    <p>無駄無駄無駄ぁ</p>
+{% endif %}

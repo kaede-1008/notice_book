@@ -21,19 +21,33 @@ class IndexView(generic.ListView):
 
 class SearchView(generic.FormView):
     #success_url = reverse_lazy('polls:detail')
-    template_name = 'apps/search.html'
     form_class = SearchForm
-
+    template_name = 'apps/search.html'
     
 class SearchListView(generic.ListView):
+    model =Book
     form_class = SearchForm
     template_name = 'apps/search_list.html'
 
-    def get_queryset(self):
-        
-        return Book.objects.all()
+    def get(self, request):
+        title = request.GET.get("title")
+        auther = request.GET.get("auther")
+        illust = request.GET.get("illust")
 
-    
+        info = {
+            'titles': title,
+            'authers': auther,
+            'illusts': illust,
+        }
+
+        return render(request, 'apps/search_list.html', info)
+
+    def get_queryset(self):
+
+        return Book.object.filter(Q(book_title__contains=self.request.title) | Q(book_auther__contains=self.request.auther) | Q(book_illust__contains=self.request.illust)).distinct()
+
+
+
 class DetailView(generic.DetailView):
     model = Book
     template_name = 'apps/details.html'
