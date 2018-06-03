@@ -3,7 +3,7 @@ from django_filters.views import FilterView
 from django.urls import reverse_lazy
 from django.views import generic
 
-from apps.models import Post, Book
+from .models import Post, Book
 from django.shortcuts import render
 from django.http.response import HttpResponse
 from .forms import SearchForm
@@ -15,7 +15,6 @@ class IndexView(generic.ListView):
     model = Post
     paginate_by = 5
     ordering = ['-publish_date']
-    #success_url = reverse_lazy('apps:search')
     template_name = 'apps/index.html'
 
 
@@ -25,8 +24,12 @@ class SearchView(generic.FormView):
     template_name = 'apps/search.html'
     
 class SearchListView(generic.ListView):
-    model =Book
-    form_class = SearchForm
+    model = Book
+    paginate_by = 5
+    
+    #Book.object.filter(Q(book_title__contains=self.request.title) | Q(book_auther__contains=self.request.auther) | Q(book_illust__contains=self.request.illust)).distinct()
+
+    ordering = ['-book_title']
     template_name = 'apps/search_list.html'
 
     def get(self, request):
@@ -41,11 +44,8 @@ class SearchListView(generic.ListView):
         }
 
         return render(request, 'apps/search_list.html', info)
-
-    def get_queryset(self):
-
-        return Book.object.filter(Q(book_title__contains=self.request.title) | Q(book_auther__contains=self.request.auther) | Q(book_illust__contains=self.request.illust)).distinct()
-
+        
+            
 
 
 class DetailView(generic.DetailView):

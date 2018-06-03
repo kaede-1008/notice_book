@@ -1,13 +1,26 @@
 {% if titles %}
 
     <h1>{{ titles }}</h1>
-    <h1>{{ book }}</h1>
-    {% for book in get_queryset %}
-        <tr>
-            <th>{{ book.book_title }}</th>
-            <th>{{ book.book_auther }} {{ book.book_illust }}</th>
-        </tr>
+    <h1>{{ authers }}</h1>
+    <h1>{{ illusts }}</h1>
+
+    {% for book in object_list %}
+        {{ book.book_title }}
     {% endfor %}
+
+    {{ object.book_title }}
+
+    {% if gets in index %}
+
+        
+        <h1>{{ gets }}</h1>
+    
+    {% else %}
+
+        <h1>そんなもんねぇよばぁか</h1>
+
+    {% endif %}
+    <h1>{{ context_object_name }}</h1>
 
 {% else %}
     <p>無駄無駄無駄ぁ</p>
