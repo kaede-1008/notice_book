@@ -16,3 +16,6 @@ class Book(models.Model):
     book_auther = models.CharField(max_length=255)
     book_illust = models.CharField(max_length=255)
     publish_date = models.CharField(max_length=255)
+
+    def __str__(self):
+        return self.book_title
